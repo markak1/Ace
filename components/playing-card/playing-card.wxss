@@ -1,0 +1,203 @@
+/* components/playing-card/playing-card.wxss */
+
+.card-container {
+  position: relative;
+  width: 60rpx;
+  height: 84rpx;
+  border-radius: 8rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.card-small {
+  width: 44rpx;
+  height: 62rpx;
+  border-radius: 6rpx;
+}
+
+.card-normal {
+  width: 60rpx;
+  height: 84rpx;
+  border-radius: 8rpx;
+}
+
+.card-large {
+  width: 80rpx;
+  height: 112rpx;
+  border-radius: 10rpx;
+}
+
+.card-selected {
+  transform: translateY(-12rpx);
+  box-shadow: 0 4rpx 16rpx rgba(255, 193, 7, 0.5);
+  border: 2rpx solid #ffc107;
+}
+
+.card-disabled {
+  opacity: 0.5;
+  filter: grayscale(0.3);
+}
+
+.card-red {
+  color: #e74c3c;
+}
+
+.card-black {
+  color: #2c3e50;
+}
+
+.card-face-down {
+  background: linear-gradient(135deg, #1a237e, #283593);
+}
+
+.card-back {
+  width: 100%;
+  height: 100%;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-back-pattern {
+  width: 80%;
+  height: 80%;
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
+  border-radius: 6rpx;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 4rpx,
+    rgba(255, 255, 255, 0.05) 4rpx,
+    rgba(255, 255, 255, 0.05) 8rpx
+  );
+}
+
+/* 牌面布局 */
+.card-corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.card-corner-top {
+  top: 4rpx;
+  left: 6rpx;
+}
+
+.card-corner-bottom {
+  bottom: 4rpx;
+  right: 6rpx;
+  transform: rotate(180deg);
+}
+
+.card-rank {
+  font-size: 18rpx;
+  font-weight: bold;
+}
+
+.card-small .card-rank {
+  font-size: 14rpx;
+}
+
+.card-large .card-rank {
+  font-size: 24rpx;
+}
+
+.card-suit {
+  font-size: 14rpx;
+}
+
+.card-small .card-suit {
+  font-size: 10rpx;
+}
+
+.card-large .card-suit {
+  font-size: 18rpx;
+}
+
+.card-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-suit-large {
+  font-size: 28rpx;
+}
+
+.card-small .card-suit-large {
+  font-size: 18rpx;
+}
+
+.card-large .card-suit-large {
+  font-size: 36rpx;
+}
+
+/* 大小鬼 */
+.card-joker {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.joker-text {
+  font-size: 16rpx;
+  font-weight: bold;
+  writing-mode: vertical-rl;
+  letter-spacing: 2rpx;
+}
+
+.card-small .joker-text {
+  font-size: 12rpx;
+}
+
+.card-large .joker-text {
+  font-size: 22rpx;
+}
+
+/* 分值标记 */
+.card-score-badge {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  background: #e74c3c;
+  color: #fff;
+  font-size: 16rpx;
+  padding: 2rpx 6rpx;
+  border-radius: 10rpx;
+  z-index: 2;
+}
+
+.card-small .card-score-badge {
+  font-size: 12rpx;
+  padding: 1rpx 4rpx;
+}
+
+/* 主牌标记 */
+.card-trump-badge {
+  position: absolute;
+  bottom: -6rpx;
+  left: -6rpx;
+  background: #ffc107;
+  color: #333;
+  font-size: 16rpx;
+  padding: 2rpx 6rpx;
+  border-radius: 10rpx;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.card-small .card-trump-badge {
+  font-size: 12rpx;
+  padding: 1rpx 4rpx;
+}

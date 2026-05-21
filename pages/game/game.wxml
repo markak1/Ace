@@ -1,0 +1,196 @@
+<!--pages/game/game.wxml-->
+<view class="game-table">
+  <!-- 牌桌背景 -->
+  <view class="table-surface"></view>
+
+  <!-- 游戏信息条 -->
+  <game-info
+    phase="{{phase}}"
+    trump-name="{{trumpName}}"
+    trump-suit-icon="{{trumpSuit === 'hearts' ? '♥' : trumpSuit === 'spades' ? '♠' : trumpSuit === 'clubs' ? '♣' : trumpSuit === 'diamonds' ? '♦' : ''}}"
+    bid-score="{{bidScore}}"
+    bind:showrules="showRules"
+  />
+
+  <!-- 计分板 -->
+  <score-board
+    round-number="{{roundNumber}}"
+    trump-suit="{{trumpSuit}}"
+    trump-name="{{trumpName}}"
+    trump-suit-icon="{{trumpSuit === 'hearts' ? '♥' : trumpSuit === 'spades' ? '♠' : trumpSuit === 'clubs' ? '♣' : trumpSuit === 'diamonds' ? '♦' : ''}}"
+    bid-score="{{bidScore}}"
+    attack-score="{{attackScore}}"
+    defense-score="{{defenseScore}}"
+    defense-needed="{{defenseNeeded}}"
+    attack-players="{{players[0].name}}, {{players[2].name}}"
+    defense-players="{{players[1].name}}, {{players[3].name}}"
+    trick-count="{{trickCount}}"
+    multiply-name="{{multiplyName}}"
+  />
+
+  <!-- 顶部玩家（对家） -->
+  <view class="seat-top-area">
+    <player-seat
+      player="{{players[2]}}"
+      seat-index="2"
+      is-current-player="{{currentPlayer === 2}}"
+      is-local-player="{{false}}"
+      played-card="{{currentTrick[2] ? currentTrick[2].card : null}}"
+      trick-result="{{showTrickResult ? trickResult : null}}"
+      trump-suit="{{trumpSuit}}"
+      position="top"
+      team="{{players[2].team}}"
+    />
+  </view>
+
+  <!-- 左侧玩家 -->
+  <view class="seat-left-area">
+    <player-seat
+      player="{{players[1]}}"
+      seat-index="1"
+      is-current-player="{{currentPlayer === 1}}"
+      is-local-player="{{false}}"
+      played-card="{{currentTrick[1] ? currentTrick[1].card : null}}"
+      trick-result="{{showTrickResult ? trickResult : null}}"
+      trump-suit="{{trumpSuit}}"
+      position="left"
+      team="{{players[1].team}}"
+    />
+  </view>
+
+  <!-- 右侧玩家 -->
+  <view class="seat-right-area">
+    <player-seat
+      player="{{players[3]}}"
+      seat-index="3"
+      is-current-player="{{currentPlayer === 3}}"
+      is-local-player="{{false}}"
+      played-card="{{currentTrick[3] ? currentTrick[3].card : null}}"
+      trick-result="{{showTrickResult ? trickResult : null}}"
+      trump-suit="{{trumpSuit}}"
+      position="right"
+      team="{{players[3].team}}"
+    />
+  </view>
+
+  <!-- 底部玩家（本地玩家） -->
+  <view class="seat-bottom-area">
+    <player-seat
+      player="{{players[0]}}"
+      seat-index="0"
+      is-current-player="{{currentPlayer === 0}}"
+      is-local-player="{{true}}"
+      played-card="{{currentTrick[0] ? currentTrick[0].card : null}}"
+      trick-result="{{showTrickResult ? trickResult : null}}"
+      trump-suit="{{trumpSuit}}"
+      position="bottom"
+      show-hand="{{true}}"
+      team="{{players[0].team}}"
+      bind:cardtap="onCardTap"
+    />
+  </view>
+
+  <!-- 出牌提示 -->
+  <view class="play-hint" wx:if="{{phase === 'playing' && currentPlayer === 0}}">
+    <text wx:if="{{currentTrick.length === 0}}">请你出牌</text>
+    <text wx:else>请跟牌</text>
+  </view>
+
+  <!-- 底牌区域（换底牌时显示） -->
+  <view class="di-pai-area" wx:if="{{diPaiMode}}">
+    <view class="di-pai-header">
+      <text class="di-pai-title">底牌 (选6张替换)</text>
+      <text class="di-pai-count">已选 {{selectedCards.length}} / 6</text>
+    </view>
+    <view class="di-pai-cards">
+      <playing-card
+        wx:for="{{diPai}}"
+        wx:key="id"
+        card="{{item}}"
+        show-score="{{true}}"
+        is-trump="{{trumpSuit && (item.isJoker || item.suit === trumpSuit)}}"
+        size="small"
+        playable="{{false}}"
+      />
+    </view>
+    <button class="btn-di-pai" bindtap="confirmDiPai" disabled="{{selectedCards.length !== 6}}">
+      确认底牌
+    </button>
+  </view>
+
+  <!-- 消息提示 -->
+  <view class="message-toast {{showMessage ? 'toast-show' : ''}}" wx:if="{{showMessage}}">
+    <text>{{message}}</text>
+  </view>
+
+  <!-- 叫分面板 -->
+  <bid-panel
+    visible="{{showBidPanel}}"
+    bid-options="{{bidOptions}}"
+    max-bid="{{maxBid}}"
+    current-bidder="{{currentBidder}}"
+    player-names="{{players}}"
+    bid-records="{{bidRecords}}"
+    bind:confirm="handleBidConfirm"
+    bind:cancel="handleBidCancel"
+  />
+
+  <!-- 主牌选择器 -->
+  <trump-selector
+    visible="{{showTrumpSelector}}"
+    bind:confirm="handleTrumpConfirm"
+    bind:cancel="handleTrumpCancel"
+  />
+
+  <!-- 倍率面板 -->
+  <multiply-panel
+    visible="{{showMultiplyPanel}}"
+    team="{{multiplyTeam}}"
+    base-cups="{{baseCups}}"
+    min-level="{{multiplyMinLevel}}"
+    bind:confirm="handleMultiplyConfirm"
+    bind:cancel="handleMultiplyCancel"
+  />
+
+  <!-- 结算弹窗 -->
+  <view class="result-modal" wx:if="{{showResult && result}}">
+    <view class="result-content {{result.isGuangtou ? 'result-guangtou' : ''}}">
+      <view class="result-banner">
+        <text class="result-emoji">{{result.isGuangtou ? '💀' : result.isAttackWin ? '🎉' : '😤'}}</text>
+        <text class="result-title">{{result.isGuangtou ? '光头！' : result.winnerLabel + '获胜！'}}</text>
+      </view>
+
+      <view class="result-detail">
+        <view class="result-row">
+          <text class="result-label">叫分</text>
+          <text class="result-value">{{result.bidScore}}分</text>
+        </view>
+        <view class="result-row">
+          <text class="result-label">打牌方得分</text>
+          <text class="result-value attack-color">{{result.attackScore}}分</text>
+        </view>
+        <view class="result-row">
+          <text class="result-label">吃牌方得分</text>
+          <text class="result-value defense-color">{{result.defenseScore}}分</text>
+        </view>
+        <view class="result-row" wx:if="{{result.multiplyName}}">
+          <text class="result-label">倍率</text>
+          <text class="result-value">{{result.multiplyName}} ({{result.effectiveMultiply}}倍)</text>
+        </view>
+        <view class="result-row result-row-highlight">
+          <text class="result-label">输酒</text>
+          <text class="result-value lose-color">{{result.loserCups}}杯</text>
+        </view>
+      </view>
+
+      <view class="result-desc">
+        <text>{{result.description}}</text>
+      </view>
+
+      <view class="result-actions">
+        <button class="btn btn-next" bindtap="handleNextRound">再来一局</button>
+        <button class="btn btn-lobby" bindtap="handleBackToLobby">返回大厅</button>
+      </view>
+    </view>
+  </view>
+</view>

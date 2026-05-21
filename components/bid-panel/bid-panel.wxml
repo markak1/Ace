@@ -1,0 +1,37 @@
+<!--components/bid-panel/bid-panel.wxml-->
+<view class="bid-panel" wx:if="{{visible}}">
+  <view class="bid-mask" bindtap="onCancel"></view>
+  <view class="bid-content">
+    <view class="bid-title">叫分</view>
+    <view class="bid-info">
+      <text class="bid-hint">当前最高：{{maxBid}}分</text>
+      <text class="bid-current" wx:if="{{currentBidder >= 0}}">轮到 {{playerNames[currentBidder]}}</text>
+    </view>
+    <view class="bid-options">
+      <view class="bid-option {{selectedBid === 0 ? 'bid-option-active' : ''}}" bindtap="selectBid" data-score="0">
+        <text>不加</text>
+      </view>
+      <view class="bid-option bid-option-score {{selectedBid === item ? 'bid-option-active' : ''}}"
+            wx:for="{{bidOptions}}"
+            wx:key="*this"
+            wx:if="{{item > 0}}"
+            bindtap="selectBid"
+            data-score="{{item}}">
+        <text class="bid-score-text">{{item}}</text>
+        <text class="bid-score-label">分</text>
+      </view>
+    </view>
+    <view class="bid-actions">
+      <button class="btn btn-cancel" bindtap="onCancel">取消</button>
+      <button class="btn btn-confirm" bindtap="onConfirm" disabled="{{selectedBid === null || selectedBid === undefined}}">确认叫分</button>
+    </view>
+    <!-- 叫分记录 -->
+    <view class="bid-history" wx:if="{{bidRecords.length > 0}}">
+      <view class="bid-history-title">叫分记录</view>
+      <view class="bid-record" wx:for="{{bidRecords}}" wx:key="playerIndex">
+        <text class="bid-record-name">{{item.name}}</text>
+        <text class="bid-record-score">{{item.score > 0 ? item.score + '分' : '不加'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

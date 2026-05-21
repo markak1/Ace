@@ -1,0 +1,208 @@
+/* components/score-board/score-board.wxss */
+
+.score-board {
+  position: fixed;
+  top: 10rpx;
+  right: 10rpx;
+  width: 300rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
+  z-index: 50;
+  overflow: hidden;
+}
+
+.board-collapsed {
+  width: auto;
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 20rpx;
+  background: #f8f9fa;
+}
+
+.board-title {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.board-toggle {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.board-body {
+  padding: 16rpx 20rpx;
+}
+
+.round-info {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+  padding-bottom: 12rpx;
+  border-bottom: 1rpx solid #eee;
+  flex-wrap: wrap;
+}
+
+.round-label {
+  font-size: 22rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.trump-info {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.trump-suit-icon {
+  font-size: 24rpx;
+}
+
+.trump-name {
+  font-size: 22rpx;
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+.bid-info {
+  font-size: 22rpx;
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.score-teams {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.score-team {
+  padding: 12rpx;
+  border-radius: 12rpx;
+  background: #f8f9fa;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-bottom: 4rpx;
+}
+
+.team-name {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.team-badge {
+  font-size: 18rpx;
+  padding: 2rpx 8rpx;
+  border-radius: 8rpx;
+  color: #fff;
+}
+
+.attack-team .team-badge { background: #e74c3c; }
+.defense-team .team-badge { background: #3498db; }
+
+.team-players {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 4rpx;
+}
+
+.team-players .player-name {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.team-score {
+  display: flex;
+  align-items: baseline;
+  gap: 4rpx;
+}
+
+.score-value {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.attack-team .score-value { color: #e74c3c; }
+.defense-team .score-value { color: #3498db; }
+
+.score-target {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.score-bar {
+  height: 6rpx;
+  background: #e0e0e0;
+  border-radius: 3rpx;
+  margin-top: 6rpx;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: 3rpx;
+  transition: width 0.5s ease;
+}
+
+.attack-fill { background: linear-gradient(90deg, #e74c3c, #ff6b6b); }
+.defense-fill { background: linear-gradient(90deg, #3498db, #5dade2); }
+
+.score-divider {
+  text-align: center;
+  padding: 4rpx 0;
+  font-size: 20rpx;
+  color: #bbb;
+  font-weight: bold;
+}
+
+.multiply-info {
+  margin-top: 12rpx;
+  padding: 8rpx 12rpx;
+  background: #fff3e0;
+  border-radius: 8rpx;
+  text-align: center;
+}
+
+.multiply-text {
+  font-size: 22rpx;
+  color: #f57c00;
+  font-weight: 500;
+}
+
+.trick-progress {
+  margin-top: 12rpx;
+  padding-top: 12rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.progress-text {
+  font-size: 20rpx;
+  color: #999;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.progress-bar {
+  height: 4rpx;
+  background: #e0e0e0;
+  border-radius: 2rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  border-radius: 2rpx;
+  transition: width 0.3s ease;
+}

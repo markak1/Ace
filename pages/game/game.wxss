@@ -1,0 +1,282 @@
+/* pages/game/game.wxss */
+
+.game-table {
+  width: 100vw;
+  height: 100vh;
+  background: #1b5e20;
+  position: relative;
+  overflow: hidden;
+}
+
+.table-surface {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 60%;
+  background: radial-gradient(ellipse, #2e7d32 0%, #1b5e20 70%);
+  border-radius: 50%;
+  border: 4rpx solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 60rpx rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== 座位区域 ==================== */
+
+.seat-top-area {
+  position: absolute;
+  top: 50rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400rpx;
+  z-index: 10;
+}
+
+.seat-left-area {
+  position: absolute;
+  left: 10rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.seat-right-area {
+  position: absolute;
+  right: 10rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.seat-bottom-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+
+/* ==================== 出牌提示 ==================== */
+
+.play-hint {
+  position: absolute;
+  bottom: 240rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 193, 7, 0.9);
+  color: #333;
+  padding: 8rpx 32rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  animation: hint-pulse 1.5s ease-in-out infinite;
+  z-index: 15;
+}
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ==================== 底牌区域 ==================== */
+
+.di-pai-area {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 24rpx;
+  padding: 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+  min-width: 500rpx;
+}
+
+.di-pai-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.di-pai-title {
+  font-size: 28rpx;
+  color: #ffc107;
+  font-weight: 500;
+}
+
+.di-pai-count {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.di-pai-cards {
+  display: flex;
+  gap: 12rpx;
+}
+
+.btn-di-pai {
+  padding: 16rpx 60rpx;
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  color: #333;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  border: none;
+}
+
+.btn-di-pai::after { border: none; }
+.btn-di-pai[disabled] { background: #666; color: #999; }
+
+/* ==================== 消息提示 ==================== */
+
+.message-toast {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 16rpx 48rpx;
+  border-radius: 32rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  z-index: 40;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.toast-show {
+  animation: toast-in 0.3s ease;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ==================== 结算弹窗 ==================== */
+
+.result-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.result-content {
+  width: 600rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.result-guangtou {
+  border: 4rpx solid #e74c3c;
+  animation: guangtou-shake 0.5s ease-in-out 3;
+}
+
+@keyframes guangtou-shake {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}
+
+.result-banner {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+  padding: 40rpx;
+  text-align: center;
+}
+
+.result-guangtou .result-banner {
+  background: linear-gradient(135deg, #b71c1c, #e53935);
+}
+
+.result-emoji {
+  display: block;
+  font-size: 64rpx;
+  margin-bottom: 12rpx;
+}
+
+.result-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #fff;
+}
+
+.result-detail {
+  padding: 24rpx 40rpx;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.result-row:last-child { border-bottom: none; }
+
+.result-row-highlight {
+  background: #fff8e1;
+  margin: 8rpx -40rpx 0;
+  padding: 16rpx 40rpx;
+  border-radius: 0;
+}
+
+.result-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.result-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.attack-color { color: #e74c3c; }
+.defense-color { color: #3498db; }
+.lose-color { color: #f57c00; font-weight: bold; font-size: 32rpx; }
+
+.result-desc {
+  padding: 0 40rpx 16rpx;
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+}
+
+.result-actions {
+  display: flex;
+  gap: 0;
+  padding: 0 0 8rpx;
+}
+
+.result-actions .btn {
+  flex: 1;
+  padding: 24rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  border: none;
+  border-radius: 0;
+}
+
+.btn::after { border: none; }
+
+.btn-next {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: #fff;
+}
+
+.btn-lobby {
+  background: #ecf0f1;
+  color: #7f8c8d;
+}

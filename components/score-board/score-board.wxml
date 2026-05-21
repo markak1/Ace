@@ -1,0 +1,69 @@
+<!--components/score-board/score-board.wxml-->
+<view class="score-board {{collapsed ? 'board-collapsed' : ''}}">
+  <view class="board-header" bindtap="toggleCollapse">
+    <text class="board-title">计分板</text>
+    <text class="board-toggle">{{collapsed ? '展开' : '收起'}}</text>
+  </view>
+  <view class="board-body" wx:if="{{!collapsed}}">
+    <!-- 当前局信息 -->
+    <view class="round-info">
+      <text class="round-label">第{{roundNumber}}局</text>
+      <view class="trump-info" wx:if="{{trumpName}}">
+        <text class="trump-suit-icon">{{trumpSuitIcon}}</text>
+        <text class="trump-name">主：{{trumpName}}</text>
+      </view>
+      <view class="bid-info" wx:if="{{bidScore > 0}}">
+        <text>叫分：{{bidScore}}分</text>
+      </view>
+    </view>
+    <!-- 双方得分 -->
+    <view class="score-teams">
+      <view class="score-team attack-team">
+        <view class="team-header">
+          <text class="team-name">打牌方</text>
+          <text class="team-badge">攻</text>
+        </view>
+        <view class="team-players">
+          <text class="player-name" wx:for="{{attackPlayers}}" wx:key="index">{{item}}</text>
+        </view>
+        <view class="team-score">
+          <text class="score-value">{{attackScore}}</text>
+          <text class="score-target">/{{bidScore}}分</text>
+        </view>
+        <view class="score-bar">
+          <view class="score-fill attack-fill" style="width: {{attackPercent}}%"></view>
+        </view>
+      </view>
+      <view class="score-divider">
+        <text>VS</text>
+      </view>
+      <view class="score-team defense-team">
+        <view class="team-header">
+          <text class="team-name">吃牌方</text>
+          <text class="team-badge">守</text>
+        </view>
+        <view class="team-players">
+          <text class="player-name" wx:for="{{defensePlayers}}" wx:key="index">{{item}}</text>
+        </view>
+        <view class="team-score">
+          <text class="score-value">{{defenseScore}}</text>
+          <text class="score-target">/{{defenseNeeded}}分</text>
+        </view>
+        <view class="score-bar">
+          <view class="score-fill defense-fill" style="width: {{defensePercent}}%"></view>
+        </view>
+      </view>
+    </view>
+    <!-- 倍率信息 -->
+    <view class="multiply-info" wx:if="{{multiplyName}}">
+      <text class="multiply-text">倍率：{{multiplyName}}</text>
+    </view>
+    <!-- 轮次进度 -->
+    <view class="trick-progress">
+      <text class="progress-text">第 {{trickCount}} / 12 轮</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{(trickCount / 12) * 100}}%"></view>
+      </view>
+    </view>
+  </view>
+</view>

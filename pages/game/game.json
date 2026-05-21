@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "对局中",
+  "navigationBarBackgroundColor": "#1b5e20",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#1b5e20",
+  "usingComponents": {
+    "playing-card": "../../components/playing-card/playing-card",
+    "player-seat": "../../components/player-seat/player-seat",
+    "score-board": "../../components/score-board/score-board",
+    "bid-panel": "../../components/bid-panel/bid-panel",
+    "trump-selector": "../../components/trump-selector/trump-selector",
+    "multiply-panel": "../../components/multiply-panel/multiply-panel",
+    "game-info": "../../components/game-info/game-info"
+  }
+}

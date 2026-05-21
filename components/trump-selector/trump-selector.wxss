@@ -1,0 +1,91 @@
+/* components/trump-selector/trump-selector.wxss */
+
+.trump-selector {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trump-mask {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.trump-content {
+  position: relative;
+  width: 600rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 48rpx 40rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.3);
+}
+
+.trump-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.trump-subtitle {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.trump-suits {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+  justify-content: center;
+}
+
+.suit-option {
+  width: 120rpx;
+  padding: 24rpx 0;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  background: #f8f9fa;
+  border: 3rpx solid transparent;
+  transition: all 0.2s;
+}
+
+.suit-option:active { transform: scale(0.95); }
+
+.suit-active {
+  border-color: #3498db;
+  box-shadow: 0 4rpx 16rpx rgba(52, 152, 219, 0.3);
+  background: #e3f2fd;
+}
+
+.suit-hearts .suit-icon { color: #e74c3c; }
+.suit-spades .suit-icon { color: #2c3e50; }
+.suit-clubs .suit-icon { color: #27ae60; }
+.suit-diamonds .suit-icon { color: #e67e22; }
+
+.suit-icon { font-size: 48rpx; }
+.suit-name { font-size: 24rpx; color: #666; }
+.suit-active .suit-name { color: #333; font-weight: 500; }
+
+.btn-confirm {
+  width: 100%;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 500;
+  border: none;
+}
+
+.btn-confirm::after { border: none; }
+.btn-confirm[disabled] { background: #bdc3c7; color: #95a5a6; }

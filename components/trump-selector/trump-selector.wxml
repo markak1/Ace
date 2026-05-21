@@ -1,0 +1,27 @@
+<!--components/trump-selector/trump-selector.wxml-->
+<view class="trump-selector" wx:if="{{visible}}">
+  <view class="trump-mask" bindtap="onCancel"></view>
+  <view class="trump-content">
+    <view class="trump-title">选择主牌花色</view>
+    <view class="trump-subtitle">叫分最高者确定主牌花色</view>
+    <view class="trump-suits">
+      <view class="suit-option {{selectedSuit === 'hearts' ? 'suit-active' : ''}} suit-hearts" bindtap="selectSuit" data-suit="hearts">
+        <text class="suit-icon">♥</text>
+        <text class="suit-name">红桃</text>
+      </view>
+      <view class="suit-option {{selectedSuit === 'spades' ? 'suit-active' : ''}} suit-spades" bindtap="selectSuit" data-suit="spades">
+        <text class="suit-icon">♠</text>
+        <text class="suit-name">黑桃</text>
+      </view>
+      <view class="suit-option {{selectedSuit === 'clubs' ? 'suit-active' : ''}} suit-clubs" bindtap="selectSuit" data-suit="clubs">
+        <text class="suit-icon">♣</text>
+        <text class="suit-name">梅花</text>
+      </view>
+      <view class="suit-option {{selectedSuit === 'diamonds' ? 'suit-active' : ''}} suit-diamonds" bindtap="selectSuit" data-suit="diamonds">
+        <text class="suit-icon">♦</text>
+        <text class="suit-name">方块</text>
+      </view>
+    </view>
+    <button class="btn btn-confirm" bindtap="onConfirm" disabled="{{!selectedSuit}}">确认主牌</button>
+  </view>
+</view>

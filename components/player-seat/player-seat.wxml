@@ -1,0 +1,89 @@
+<!--components/player-seat/player-seat.wxml-->
+<view class="player-seat {{positionClass}} {{isCurrentPlayer ? 'seat-active' : ''}}">
+  <!-- 底部玩家（本地玩家） -->
+  <block wx:if="{{position === 'bottom'}}">
+    <view class="seat-bottom-layout">
+      <!-- 手牌区域 -->
+      <view class="hand-area hand-area-bottom" wx:if="{{showHand && player.hand && player.hand.length > 0}}">
+        <scroll-view scroll-x class="hand-scroll" enhanced show-scrollbar="{{false}}">
+          <view class="hand-cards">
+            <playing-card
+              wx:for="{{player.hand}}"
+              wx:key="id"
+              card="{{item}}"
+              show-score="{{true}}"
+              is-trump="{{trumpSuit && (item.isJoker || item.suit === trumpSuit)}}"
+              size="normal"
+              playable="{{isLocalPlayer}}"
+              bind:tap="onCardTap"
+            />
+          </view>
+        </scroll-view>
+      </view>
+      <!-- 牌背 -->
+      <view class="hand-area hand-area-bottom" wx:elif="{{player.cardCount > 0}}">
+        <view class="hand-cards-back">
+          <view class="card-back-small" wx:for="{{player.cardCount}}" wx:key="*this"></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 顶部玩家 -->
+  <block wx:if="{{position === 'top'}}">
+    <view class="seat-top-layout">
+      <view class="hand-area hand-area-top" wx:if="{{player.cardCount > 0}}">
+        <view class="hand-cards-back">
+          <view class="card-back-small" wx:for="{{player.cardCount}}" wx:key="*this"></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 左侧玩家 -->
+  <block wx:if="{{position === 'left'}}">
+    <view class="seat-side-layout seat-left-layout">
+      <view class="hand-area hand-area-left" wx:if="{{player.cardCount > 0}}">
+        <view class="hand-cards-vertical">
+          <view class="card-back-small" wx:for="{{player.cardCount}}" wx:key="*this"></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 右侧玩家 -->
+  <block wx:if="{{position === 'right'}}">
+    <view class="seat-side-layout seat-right-layout">
+      <view class="hand-area hand-area-right" wx:if="{{player.cardCount > 0}}">
+        <view class="hand-cards-vertical">
+          <view class="card-back-small" wx:for="{{player.cardCount}}" wx:key="*this"></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 玩家信息 -->
+  <view class="player-info {{isCurrentPlayer ? 'info-active' : ''}} {{team === 'attack' ? 'info-attack' : 'info-defense'}}">
+    <view class="player-avatar-wrap">
+      <image class="player-avatar" src="{{player.avatar || '/assets/images/default-avatar.png'}}" mode="aspectFill" />
+      <view class="team-badge" wx:if="{{team}}">{{team === 'attack' ? '攻' : '守'}}</view>
+    </view>
+    <text class="player-name">{{player.name || '玩家'}}</text>
+    <text class="player-card-count" wx:if="{{player.cardCount > 0}}">{{player.cardCount}}张</text>
+  </view>
+
+  <!-- 出牌区域 -->
+  <view class="played-card-area" wx:if="{{playedCard}}">
+    <playing-card
+      card="{{playedCard}}"
+      show-score="{{true}}"
+      is-trump="{{trumpSuit && (playedCard.isJoker || playedCard.suit === trumpSuit)}}"
+      size="large"
+      playable="{{false}}"
+    />
+    <!-- 本轮赢家标记 -->
+    <view class="trick-winner-badge" wx:if="{{trickResult && trickResult.winner === seatIndex}}">
+      <text>赢</text>
+    </view>
+  </view>
+</view>

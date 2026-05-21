@@ -1,0 +1,37 @@
+<!--components/multiply-panel/multiply-panel.wxml-->
+<view class="multiply-panel" wx:if="{{visible}}">
+  <view class="multiply-mask" bindtap="onCancel"></view>
+  <view class="multiply-content">
+    <view class="multiply-title">加倍阶段</view>
+    <view class="multiply-team">
+      <text class="team-label {{team === 'defense' ? 'team-defense' : 'team-attack'}}">{{team === 'defense' ? '吃牌方' : '打牌方'}}</text>
+      <text class="team-hint">选择是否加倍</text>
+    </view>
+    <view class="multiply-options">
+      <view class="multiply-option {{selectedLevel === 0 ? 'option-active' : ''}}" bindtap="selectLevel" data-level="0">
+        <text class="option-name">不加</text>
+        <text class="option-desc">1倍底酒</text>
+      </view>
+      <view class="multiply-option option-dao {{selectedLevel === 2 ? 'option-active' : ''}}" bindtap="selectLevel" data-level="2">
+        <text class="option-icon">倒</text>
+        <text class="option-desc">2倍底酒</text>
+      </view>
+      <view class="multiply-option option-lei {{selectedLevel === 3 ? 'option-active' : ''}}" bindtap="selectLevel" data-level="3">
+        <text class="option-icon">擂</text>
+        <text class="option-desc">3倍底酒</text>
+      </view>
+      <view class="multiply-option option-wo {{selectedLevel === 4 ? 'option-active' : ''}}" bindtap="selectLevel" data-level="4">
+        <text class="option-icon">窝</text>
+        <text class="option-desc">4倍底酒</text>
+      </view>
+      <view class="multiply-option option-zhua {{selectedLevel === 5 ? 'option-active' : ''}}" bindtap="selectLevel" data-level="5">
+        <text class="option-icon">抓</text>
+        <text class="option-desc">5倍底酒</text>
+      </view>
+    </view>
+    <view class="multiply-info" wx:if="{{selectedLevel > 0}}">
+      <text>{{baseCups}}杯底酒 x {{selectedLevel}}倍 = {{baseCups * selectedLevel}}杯</text>
+    </view>
+    <button class="btn btn-confirm" bindtap="onConfirm">确认</button>
+  </view>
+</view>

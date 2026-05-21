@@ -1,0 +1,51 @@
+<!--pages/result/result.wxml-->
+<view class="result-page">
+  <view class="result-card" wx:if="{{result}}">
+    <view class="result-header {{result.isGuangtou ? 'header-guangtou' : result.isAttackWin ? 'header-win' : 'header-lose'}}">
+      <text class="result-emoji">{{result.isGuangtou ? '💀' : result.isAttackWin ? '🎉' : '😤'}}</text>
+      <text class="result-title">{{result.isGuangtou ? '光头！大败！' : result.winnerLabel + '获胜！'}}</text>
+    </view>
+
+    <view class="result-body">
+      <view class="score-summary">
+        <view class="score-item attack">
+          <text class="score-label">打牌方</text>
+          <text class="score-num">{{result.attackScore}}</text>
+          <text class="score-target">/ {{result.bidScore}}分</text>
+        </view>
+        <view class="score-vs">VS</view>
+        <view class="score-item defense">
+          <text class="score-label">吃牌方</text>
+          <text class="score-num">{{result.defenseScore}}</text>
+          <text class="score-target">/ {{result.defenseNeeded}}分</text>
+        </view>
+      </view>
+
+      <view class="detail-list">
+        <view class="detail-row">
+          <text class="detail-label">叫分</text>
+          <text class="detail-value">{{result.bidScore}}分</text>
+        </view>
+        <view class="detail-row" wx:if="{{result.multiplyName}}">
+          <text class="detail-label">倍率</text>
+          <text class="detail-value highlight">{{result.multiplyName}} ({{result.effectiveMultiply}}倍)</text>
+        </view>
+        <view class="detail-row">
+          <text class="detail-label">底酒</text>
+          <text class="detail-value">{{result.baseCups}}杯</text>
+        </view>
+        <view class="detail-row highlight-row">
+          <text class="detail-label">输酒</text>
+          <text class="detail-value lose-text">{{result.loserCups}}杯</text>
+        </view>
+      </view>
+
+      <view class="result-desc">{{result.description}}</view>
+    </view>
+
+    <view class="result-footer">
+      <button class="btn btn-share" open-type="share">分享战绩</button>
+      <button class="btn btn-back" bindtap="goBack">返回大厅</button>
+    </view>
+  </view>
+</view>

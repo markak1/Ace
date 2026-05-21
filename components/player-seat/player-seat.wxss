@@ -1,0 +1,246 @@
+/* components/player-seat/player-seat.wxss */
+
+.player-seat {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+/* ==================== 底部座位 ==================== */
+.seat-bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 220rpx;
+  flex-direction: column;
+}
+
+.seat-bottom-layout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.hand-area-bottom {
+  padding: 0 20rpx 20rpx;
+}
+
+.hand-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.hand-cards {
+  display: inline-flex;
+  gap: 0;
+}
+
+.hand-cards playing-card {
+  margin-left: -14rpx;
+}
+
+.hand-cards playing-card:first-child {
+  margin-left: 0;
+}
+
+/* ==================== 顶部座位 ==================== */
+.seat-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 140rpx;
+}
+
+.seat-top-layout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 10rpx;
+}
+
+.hand-area-top {
+  display: flex;
+  justify-content: center;
+}
+
+.hand-cards-back {
+  display: flex;
+  gap: 0;
+}
+
+.hand-cards-back .card-back-small {
+  margin-left: -24rpx;
+}
+
+.hand-cards-back .card-back-small:first-child {
+  margin-left: 0;
+}
+
+/* ==================== 左侧座位 ==================== */
+.seat-left {
+  left: 0;
+  top: 140rpx;
+  bottom: 220rpx;
+  width: 120rpx;
+}
+
+.seat-side-layout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hand-area-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.hand-cards-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.hand-cards-vertical .card-back-small {
+  margin-top: -30rpx;
+}
+
+.hand-cards-vertical .card-back-small:first-child {
+  margin-top: 0;
+}
+
+/* ==================== 右侧座位 ==================== */
+.seat-right {
+  right: 0;
+  top: 140rpx;
+  bottom: 220rpx;
+  width: 120rpx;
+}
+
+/* ==================== 玩家信息 ==================== */
+.player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.player-avatar-wrap {
+  position: relative;
+  width: 56rpx;
+  height: 56rpx;
+}
+
+.player-avatar {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  border: 2rpx solid #ddd;
+}
+
+.team-badge {
+  position: absolute;
+  bottom: -4rpx;
+  right: -4rpx;
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 50%;
+  font-size: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.info-attack .team-badge {
+  background: #e74c3c;
+}
+
+.info-defense .team-badge {
+  background: #3498db;
+}
+
+.player-name {
+  font-size: 22rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.player-card-count {
+  font-size: 18rpx;
+  color: #999;
+}
+
+/* 当前玩家高亮 */
+.seat-active .player-info,
+.info-active {
+  box-shadow: 0 0 0 4rpx #ffc107, 0 2rpx 12rpx rgba(255, 193, 7, 0.4);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 4rpx #ffc107, 0 2rpx 12rpx rgba(255, 193, 7, 0.4); }
+  50% { box-shadow: 0 0 0 6rpx #ffc107, 0 2rpx 20rpx rgba(255, 193, 7, 0.6); }
+}
+
+/* ==================== 牌背样式 ==================== */
+.card-back-small {
+  width: 36rpx;
+  height: 50rpx;
+  border-radius: 5rpx;
+  background: linear-gradient(135deg, #1a237e, #283593);
+  box-shadow: 0 1rpx 4rpx rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+/* ==================== 出牌区域 ==================== */
+.played-card-area {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seat-bottom .played-card-area {
+  top: -80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.seat-top .played-card-area {
+  bottom: -80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.seat-left .played-card-area {
+  right: -60rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.seat-right .played-card-area {
+  left: -60rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.trick-winner-badge {
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  background: #27ae60;
+  color: #fff;
+  font-size: 18rpx;
+  padding: 2rpx 8rpx;
+  border-radius: 10rpx;
+  font-weight: bold;
+}

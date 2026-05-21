@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/lobby/lobby",
+    "pages/game/game",
+    "pages/result/result"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#0a1628",
+    "navigationBarTitleText": "腾冲幺子分",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0a1628",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#ffc107",
+    "backgroundColor": "#0a1628",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/lobby/lobby",
+        "text": "大厅",
+        "iconPath": "assets/images/tab-home.png",
+        "selectedIconPath": "assets/images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/game/game",
+        "text": "对局",
+        "iconPath": "assets/images/tab-game.png",
+        "selectedIconPath": "assets/images/tab-game-active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于附近玩家匹配"
+    }
+  },
+  "requiredPrivateInfos": [],
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {}
+}

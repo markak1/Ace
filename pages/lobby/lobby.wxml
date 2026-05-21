@@ -1,0 +1,156 @@
+<!--pages/lobby/lobby.wxml-->
+<view class="lobby-page">
+  <!-- 背景装饰 -->
+  <view class="bg-decoration">
+    <view class="bg-card bg-card-1">♠</view>
+    <view class="bg-card bg-card-2">♥</view>
+    <view class="bg-card bg-card-3">♣</view>
+    <view class="bg-card bg-card-4">♦</view>
+  </view>
+
+  <!-- 标题区域 -->
+  <view class="header">
+    <view class="title-area">
+      <text class="game-title">腾冲幺子分</text>
+      <text class="game-subtitle">经典扑克牌游戏</text>
+    </view>
+    <view class="logo-area">
+      <view class="logo-cards">
+        <text class="logo-card logo-card-1">大鬼</text>
+        <text class="logo-card logo-card-2">A</text>
+        <text class="logo-card logo-card-3">K</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 玩家信息 -->
+  <view class="player-section">
+    <view class="player-card">
+      <image class="player-avatar" src="{{userInfo.avatarUrl || ''}}" mode="aspectFill" />
+      <view class="player-info">
+        <text class="player-name">{{userInfo.nickName || '未登录'}}</text>
+        <text class="player-id">ID: {{userId || '---'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏模式选择 -->
+  <view class="mode-section">
+    <view class="section-title">选择游戏模式</view>
+    <view class="mode-options">
+      <view class="mode-card mode-active" bindtap="selectMode" data-mode="single">
+        <view class="mode-icon">🎮</view>
+        <text class="mode-name">单人练习</text>
+        <text class="mode-desc">与AI对手对战</text>
+      </view>
+      <view class="mode-card" bindtap="selectMode" data-mode="room">
+        <view class="mode-icon">👥</view>
+        <text class="mode-name">创建房间</text>
+        <text class="mode-desc">邀请好友组局</text>
+      </view>
+      <view class="mode-card" bindtap="selectMode" data-mode="join">
+        <view class="mode-icon">🚪</view>
+        <text class="mode-name">加入房间</text>
+        <text class="mode-desc">输入房间号加入</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI难度选择（单人模式） -->
+  <view class="difficulty-section" wx:if="{{selectedMode === 'single'}}">
+    <view class="section-title">AI难度</view>
+    <view class="difficulty-options">
+      <view class="diff-option {{difficulty === 'easy' ? 'diff-active' : ''}}" bindtap="selectDifficulty" data-level="easy">
+        <text class="diff-name">简单</text>
+        <text class="diff-desc">休闲放松</text>
+      </view>
+      <view class="diff-option {{difficulty === 'normal' ? 'diff-active' : ''}}" bindtap="selectDifficulty" data-level="normal">
+        <text class="diff-name">普通</text>
+        <text class="diff-desc">适度挑战</text>
+      </view>
+      <view class="diff-option {{difficulty === 'hard' ? 'diff-active' : ''}}" bindtap="selectDifficulty" data-level="hard">
+        <text class="diff-name">困难</text>
+        <text class="diff-desc">高手过招</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底酒设置 -->
+  <view class="settings-section" wx:if="{{selectedMode === 'single' || selectedMode === 'room'}}">
+    <view class="section-title">酒令设置</view>
+    <view class="setting-row">
+      <text class="setting-label">底酒杯数</text>
+      <view class="setting-control">
+        <view class="ctrl-btn" bindtap="adjustCups" data-delta="-1">-</view>
+        <text class="ctrl-value">{{baseCups}}杯</text>
+        <view class="ctrl-btn" bindtap="adjustCups" data-delta="1">+</view>
+      </view>
+    </view>
+    <view class="setting-row">
+      <text class="setting-label">音效</text>
+      <switch checked="{{soundEnabled}}" bindchange="toggleSound" color="#3498db" />
+    </view>
+  </view>
+
+  <!-- 开始按钮 -->
+  <view class="action-section">
+    <button class="btn-start" bindtap="startGame">开始游戏</button>
+  </view>
+
+  <!-- 历史战绩入口 -->
+  <view class="footer-links">
+    <view class="footer-link" bindtap="showHistory">
+      <text>历史战绩</text>
+    </view>
+    <view class="footer-link" bindtap="showRules">
+      <text>游戏规则</text>
+    </view>
+  </view>
+
+  <!-- 规则弹窗 -->
+  <view class="rules-modal" wx:if="{{showRulesModal}}" bindtap="hideRules">
+    <view class="rules-content" catchtap="">
+      <view class="rules-title">游戏规则</view>
+      <scroll-view scroll-y class="rules-scroll">
+        <view class="rules-text">
+          <text class="rules-section">基本规则</text>
+          <text>腾冲幺子分使用54张扑克牌，四门花色各13张加大大小鬼。四人两组对战，每组两人。</text>
+
+          <text class="rules-section">牌的大小</text>
+          <text>大鬼 > 小鬼 > A > K > Q > J > 10 > 9 > 8 > 7 > 6 > 5 > 4 > 3 > 2</text>
+
+          <text class="rules-section">主牌</text>
+          <text>叫分最高者选定一种花色为主牌。大小鬼永远是主牌且最大。主牌杀副牌。</text>
+
+          <text class="rules-section">出牌规则</text>
+          <text>出主牌随主牌，出副牌随副牌，无同色牌可垫牌。每轮4张牌，大牌者出下一轮。</text>
+
+          <text class="rules-section">叫分</text>
+          <text>最低75分，最高100分。按5的倍数叫，必须超过上家。叫100分需亮明主牌A。</text>
+
+          <text class="rules-section">计分</text>
+          <text>5分、10分、K(10分)为分值牌。打牌方吃够叫分即赢。吃牌方需吃够(100-叫分+5)分才赢。</text>
+
+          <text class="rules-section">倍率</text>
+          <text>倒(2倍)、擂(3倍)、窝(4倍)、抓(5倍)。吃牌方先加，打牌方可反制。</text>
+
+          <text class="rules-section">光头</text>
+          <text>打牌方1分没吃到为光头，底酒3杯。宁吃倒酒，不吃光头！</text>
+        </view>
+      </scroll-view>
+      <button class="btn-close" bindtap="hideRules">知道了</button>
+    </view>
+  </view>
+
+  <!-- 房间号输入弹窗 -->
+  <view class="room-modal" wx:if="{{showRoomModal}}">
+    <view class="room-content">
+      <view class="room-title">加入房间</view>
+      <input class="room-input" type="number" placeholder="请输入房间号" value="{{roomCode}}" bindinput="onRoomInput" maxlength="6" />
+      <view class="room-actions">
+        <button class="btn btn-cancel" bindtap="hideRoomModal">取消</button>
+        <button class="btn btn-confirm" bindtap="joinRoom">加入</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<!--components/playing-card/playing-card.wxml-->
+<view class="card-container {{sizeClass}} {{faceDown ? 'card-face-down' : ''}} {{selected ? 'card-selected' : ''}} {{!playable && !faceDown ? 'card-disabled' : ''}} {{colorClass}}" bindtap="onTap">
+  <!-- 正面 -->
+  <block wx:if="{{!faceDown && card}}">
+    <block wx:if="{{isJoker}}">
+      <view class="card-joker">
+        <text class="joker-text">{{jokerText}}</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="card-corner card-corner-top">
+        <text class="card-rank">{{rankText}}</text>
+        <text class="card-suit">{{suitSymbol}}</text>
+      </view>
+      <view class="card-center">
+        <text class="card-suit-large">{{suitSymbol}}</text>
+      </view>
+      <view class="card-corner card-corner-bottom">
+        <text class="card-rank">{{rankText}}</text>
+        <text class="card-suit">{{suitSymbol}}</text>
+      </view>
+    </block>
+    <!-- 分值标记 -->
+    <view wx:if="{{showScore && card.score > 0}}" class="card-score-badge">
+      <text>{{card.score}}分</text>
+    </view>
+    <!-- 主牌标记 -->
+    <view wx:if="{{isTrump}}" class="card-trump-badge">
+      <text>主</text>
+    </view>
+  </block>
+  <!-- 背面 -->
+  <block wx:if="{{faceDown}}">
+    <view class="card-back">
+      <view class="card-back-pattern"></view>
+    </view>
+  </block>
+</view>

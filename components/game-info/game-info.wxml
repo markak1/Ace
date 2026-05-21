@@ -1,0 +1,18 @@
+<!--components/game-info/game-info.wxml-->
+<view class="game-info-bar">
+  <view class="info-item" wx:if="{{phaseName}}">
+    <text class="info-label">阶段</text>
+    <text class="info-value">{{phaseName}}</text>
+  </view>
+  <view class="info-item" wx:if="{{trumpDisplay}}">
+    <text class="info-label">主牌</text>
+    <text class="info-value trump-display">{{trumpDisplay}}</text>
+  </view>
+  <view class="info-item" wx:if="{{bidDisplay}}">
+    <text class="info-label">叫分</text>
+    <text class="info-value bid-display">{{bidDisplay}}</text>
+  </view>
+  <view class="info-item info-action" bindtap="onShowRules">
+    <text class="info-icon">?</text>
+  </view>
+</view>

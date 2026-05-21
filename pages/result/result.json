@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "对局结算",
+  "navigationBarBackgroundColor": "#1a237e",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#1a237e",
+  "usingComponents": {
+    "playing-card": "../../components/playing-card/playing-card"
+  }
+}
